@@ -1,0 +1,8 @@
+- hosts: srv01
+  gather_facts: true
+
+  tasks:
+
+    - name: setup and update bind server
+      import_role:
+         name: bind
