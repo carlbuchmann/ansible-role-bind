@@ -1,0 +1,75 @@
+bind_zone_dir: /var/local/named-zones
+bind_zone_file_mode: '0660'
+bind_allow_query:
+  - any
+bind_listen_ipv4:
+  - any
+bind_listen_ipv6:
+  - any
+bind_acls:
+  - name: acl1
+    match_list:
+      - 192.168.2.0/24
+bind_forwarders:
+  - '8.8.8.8'
+  - '8.8.4.4'
+bind_recursion: true
+bind_query_log: 'data/query.log'
+bind_check_names: 'master ignore'
+bind_zone_master_server_ip: 192.168.2.11
+bind_zone_domains:
+  - name: 'homelab.local'
+    networks:
+      - '192.168.2'
+    name_servers:
+      - srv01.homelab.local.
+    hostmaster_email: admin
+    hosts:
+      - name: srv01
+        ip: 192.168.2.11
+        aliases:
+          - mail
+      - name: DC1-CVP-1
+        ip: 192.168.2.201
+      - name: DC1-CVP-2
+        ip: 192.168.2.202
+      - name: DC1-CVP-3
+        ip: 192.168.2.203
+      - name: DC1-CVP-2019
+        ip: 192.168.2.99
+      - name: DC1-SPINE1
+        ip: 192.168.2.101
+      - name: DC1-SPINE2
+        ip: 192.168.2.102
+      - name: DC1-LEAF1A
+        ip: 192.168.2.105
+      - name: DC1-LEAF2A
+        ip: 192.168.2.106
+      - name: DC1-LEAF2B
+        ip: 192.168.2.107
+      - name: DC1-SVC3A
+        ip: 192.168.2.108
+      - name: DC1-SVC3B
+        ip: 192.168.2.109
+      - name: DC1-BL1A
+        ip: 192.168.2.110
+      - name: DC1-BL1B
+        ip: 192.168.2.111
+      - name: DC1-L2LEAF4A
+        ip: 192.168.2.112
+      - name: DC1-L2LEAF5A
+        ip: 192.168.2.113
+      - name: DC1-L2LEAF5B
+        ip: 192.168.2.114
+      - name: DC1-L2LEAF6A
+        ip: 192.168.2.115
+      - name: DC1-L2LEAF6B
+        ip: 192.168.2.116
+    mail_servers:
+      - name: mail
+        preference: 10
+    services:
+      - name: _ldap._tcp
+        weight: 100
+        port: 88
+        target: srv01
